@@ -34,6 +34,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import <SpringBoard/SpringBoard.h>
+//Commented out to avoid compilation warnings when linking against 3.1.3 private headers
+//#import <SpringBoard/SBStatusBarDataManager.h>
 #import <ChatKit/ChatKit.h>
 
 #import <objc/runtime.h>
@@ -47,6 +49,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 %class SBIcon;
 %class SBAppSwitcherController;
 %class SBAwayController;
+%class SBStatusBarDataManager;
 
 @interface SBUIController (peterhajas)
 -(void)activateApplicationFromSwitcher:(SBApplication *) app;
@@ -232,6 +235,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     SBAwayController* awayController = (SBAwayController *)[%c(SBAwayController) sharedAwayController];
     [awayController undimScreen];
     [awayController restartDimTimer:5.0];
+}
+
+-(void)toggleDoubleHighStatusBar
+{
+	NSLog(@".........................................................Toggling doublehigh statusbar");
+	id statusBarDataManager = [%c(SBStatusBarDataManager) sharedDataManager];
+    [statusBarDataManager toggleSimulatesInCallStatusBar];
 }
 
 @end
